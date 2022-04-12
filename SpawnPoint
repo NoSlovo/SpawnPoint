@@ -6,6 +6,6 @@ public class SpawnPoint : MonoBehaviour
 {
     [SerializeField] private Unit _anemy;
 
-    public Unit Anemy{ get { return _anemy; } private set { }}
-    public Transform Positinion { get { return transform; } private set { } }
-} 
+    public Unit Anemy => _anemy;
+    public Transform Positinion => transform;
+}  
