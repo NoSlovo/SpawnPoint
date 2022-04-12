@@ -1,0 +1,42 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.Events;
+
+public class Spawner : MonoBehaviour
+{
+    [SerializeField] private UnityEvent _spawn;
+    [SerializeField] private List<SpawnPoint> _points = new List<SpawnPoint>();
+    private Coroutine _spawnEnemy;
+
+    public void ActivatePoints()
+    {
+        if (_spawnEnemy != null)
+        {
+            StopCoroutine(Spawn());
+        }
+        else
+        {
+            _spawnEnemy = StartCoroutine(Spawn());
+        }
+    }
+
+    private IEnumerator Spawn()
+    {
+        var WaitForSecondsRealtime = new WaitForSecondsRealtime(2);
+
+        for (int i = 0; i < _points.Count; i++)
+        {
+            int randomNumber = Random.Range(0, _points.Count);
+            Debug.Log(randomNumber);
+            _points[randomNumber].SpawnEnemy();
+            yield return WaitForSecondsRealtime;
+        }
+
+    }
+
+    private void Start()
+    {
+        _spawn.Invoke();
+    }
+}
