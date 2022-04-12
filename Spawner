@@ -7,7 +7,13 @@ public class Spawner : MonoBehaviour
 {
     [SerializeField] private UnityEvent _spawn;
     [SerializeField] private List<SpawnPoint> _points = new List<SpawnPoint>();
+
     private Coroutine _spawnEnemy;
+
+    private void Start()
+    {
+        _spawn.Invoke();
+    }
 
     public void ActivatePoints()
     {
@@ -20,7 +26,7 @@ public class Spawner : MonoBehaviour
             _spawnEnemy = StartCoroutine(Spawn());
         }
     }
-
+  
     private IEnumerator Spawn()
     {
         var WaitForSecondsRealtime = new WaitForSecondsRealtime(2);
@@ -28,15 +34,8 @@ public class Spawner : MonoBehaviour
         for (int i = 0; i < _points.Count; i++)
         {
             int randomNumber = Random.Range(0, _points.Count);
-            Debug.Log(randomNumber);
-            _points[randomNumber].SpawnEnemy();
+            Instantiate(_points[randomNumber].Anemy,_points[randomNumber].Positinion);
             yield return WaitForSecondsRealtime;
         }
-
-    }
-
-    private void Start()
-    {
-        _spawn.Invoke();
     }
 }
