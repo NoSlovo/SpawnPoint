@@ -5,17 +5,17 @@ using UnityEngine.Events;
 
 public class Spawner : MonoBehaviour
 {
-    [SerializeField] private UnityEvent _spawn;
+    [SerializeField] private UnityEvent _ObjectAppeared;
     [SerializeField] private List<SpawnPoint> _points = new List<SpawnPoint>();
 
     private Coroutine _spawnEnemy;
 
     private void Start()
     {
-        _spawn.Invoke();
+        _ObjectAppeared.Invoke();
     }
 
-    public void ActivatePoints()
+    public void StartSpawn()
     {
         if (_spawnEnemy != null)
         {
@@ -23,19 +23,19 @@ public class Spawner : MonoBehaviour
         }
         else
         {
-            _spawnEnemy = StartCoroutine(Spawn());
+          _spawnEnemy =  StartCoroutine(Spawn());
         }
     }
   
     private IEnumerator Spawn()
     {
-        var WaitForSecondsRealtime = new WaitForSecondsRealtime(2);
+        var waitForSecondsRealtime = new WaitForSecondsRealtime(2);
 
         for (int i = 0; i < _points.Count; i++)
         {
             int randomNumber = Random.Range(0, _points.Count);
             Instantiate(_points[randomNumber].Anemy,_points[randomNumber].Positinion);
-            yield return WaitForSecondsRealtime;
+            yield return waitForSecondsRealtime;
         }
     }
 }
