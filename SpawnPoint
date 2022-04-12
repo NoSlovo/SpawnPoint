@@ -1,19 +1,11 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+
+[RequireComponent(typeof(Unit))]
 
 public class SpawnPoint : MonoBehaviour
 {
-    [SerializeField] private GameObject _anemy;
-    
-    private bool _objectCreated = false;
+    [SerializeField] private Unit _anemy;
 
-    public void SpawnEnemy()
-    {
-        if (_objectCreated == false)
-        {
-            Instantiate(_anemy, transform);
-            _objectCreated = true;
-        }    
-    }
-}
+    public Unit Anemy{ get { return _anemy; } private set { }}
+    public Transform Positinion { get { return transform; } private set { } }
+} 
